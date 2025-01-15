@@ -1,0 +1,23 @@
+def factorial(n)
+  raise "can't be negative" if n < 0
+
+  return 1 if n <= 1
+
+  n * factorial(n - 1)
+end
+
+require "minitest/autorun" 
+
+class FactorialTest < Minitest::Test
+  def test_positive
+    assert_equal 120, factorial(5)
+  end
+
+  def test_zero
+    assert_equal 1, factorial(0)
+  end
+
+  def test_negative
+    assert_raises(RuntimeError) { factorial(-3) }
+  end
+end
