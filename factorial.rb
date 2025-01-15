@@ -1,6 +1,6 @@
 # Will cause stack overflow error for large numbers
 def factorial_recursive(n)
-  raise "Argument can't be negative" if n < 0
+  raise ArgumentError, "Factorial is not defined for negative numbers" if n < 0
 
   return 1 if n <= 1
 
@@ -9,7 +9,7 @@ end
 
 # Doesn't cause stack over flow error because call stacks is not filled
 def factorial_iterative(n)
-  raise "Argument can't be negative" if n < 0
+  raise ArgumentError, "Factorial is not defined for negative numbers" if n < 0
 
   result = 1
   (1..n).each { |i| result *= i }
@@ -24,7 +24,7 @@ def factorial_tail_recursive_internal(n, result)
 end
 
 def factorial_tail_recursive(n)
-  raise "Argument can't be negative" if n < 0
+  raise ArgumentError, "Factorial is not defined for negative numbers" if n < 0
 
   factorial_tail_recursive_internal(n, 1)
 end
@@ -41,7 +41,7 @@ class FactorialTest < Minitest::Test
   end
 
   def test_negative_recursive
-    assert_raises(RuntimeError) { factorial_recursive(-3) }
+    assert_raises(ArgumentError) { factorial_recursive(-3) }
   end
 
   def test_positive_iterative
@@ -53,7 +53,7 @@ class FactorialTest < Minitest::Test
   end
 
   def test_negative_iterative
-    assert_raises(RuntimeError) { factorial_iterative(-3) }
+    assert_raises(ArgumentError) { factorial_iterative(-3) }
   end
 
   def test_positive_tail_recursive
@@ -65,6 +65,6 @@ class FactorialTest < Minitest::Test
   end
 
   def test_negative_tail_recursive
-    assert_raises(RuntimeError) { factorial_tail_recursive(-3) }
+    assert_raises(ArgumentError) { factorial_tail_recursive(-3) }
   end
 end
